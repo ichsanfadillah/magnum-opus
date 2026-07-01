@@ -1,0 +1,34 @@
+import { useState } from "react";
+import { wallpaperlist } from "../data/wallpapers";
+import TopBar from "../components/TopBar.jsx";
+
+export default function AppCoordinator() {
+  const [currentWallpaper, setWallpaper] = useState(wallpaperlist[0]);
+  const [openWindows, setOpenWindows] = useState([]);
+
+  return (
+    <>
+      <div
+        className="desktop-shell"
+        style={{
+          background:
+            currentWallpaper.type === "image"
+              ? `url(${currentWallpaper.value})`
+              : currentWallpaper.value,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      ></div>
+
+      <TopBar client:load />
+
+      <div className="desktop-workspace">
+        {openWindows
+          .filter((app) => !app.isMinimized) // Only draw it if it's not minimized
+          .map((app) => (
+            <Window key={app.id} app={app} />
+          ))}
+      </div>
+    </>
+  );
+}

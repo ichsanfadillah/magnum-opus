@@ -1,0 +1,164 @@
+/* Reset the foundation */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden; /* Lock the screen from scrolling */
+    background-color: salmon; /* Fallback base color */
+
+    font-family:
+        "JetBrains Mono",
+        "Fira Code",
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Force our desktop shell to ignore parent limits and claim the screen */
+/* 1. The Background Layer (Keeps the wallpaper pinned safely at the root) */
+.desktop-shell {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    color: white;
+    padding: 0;
+    overflow: hidden;
+}
+
+/* 2. The Interactive Workspace Layer (Where app windows float) */
+.desktop-workspace {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10; /* Sits above standard buttons, but below the TopBar */
+
+    /* THE TRICK: Make this entire window track box ghost-clickable! */
+    pointer-events: none;
+}
+
+/* 3. The App Frames Inside the Workspace */
+.window-frame {
+    /* ... your existing frame styles ... */
+
+    /* RE-ENABLE CLICKS: Ensures your actual window headers and text intercept mouse actions normally! */
+    pointer-events: auto;
+}
+
+.top-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 7px 7px;
+    font-size: 13px;
+
+    /* 1. Switch layout engine from Flex to Grid */
+    display: grid;
+    /* 2. Create 3 locked columns that split screen space into exactly equal thirds */
+    grid-template-columns: 1fr 1fr 1fr;
+    /* 3. Vertically realign your elements onto the central axis */
+    align-items: center;
+}
+
+/* Force the core-system to hug the far left of column 1 */
+.top-bar > .core-system {
+    justify-self: start;
+}
+
+/* Force the task-tracker to lock onto the dead-center axis of column 2 */
+.top-bar > .task-tracker {
+    justify-self: center;
+}
+
+/* Force your status-utilities to hug the far right of column 3 */
+.top-bar > .status-utilities {
+    justify-self: end;
+}
+
+.core-system,
+.task-tracker,
+.status-utilities {
+    display: flex;
+    align-items: center;
+    padding: 5px 5px;
+    background-color: white;
+    color: black;
+    border-radius: 20px;
+    width: max-content;
+    pointer-events: auto;
+}
+
+.top-bar button {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    color: inherit; /* Inherits the black color from the parent divs */
+    padding: 4px 10px; /* Add padding here so the button size stays consistent */
+
+    /* High border-radius creates the capsule shape */
+    border-radius: 22px;
+
+    /* Smoothly animates the background color change */
+    transition:
+        background-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.top-bar button:hover {
+    background-color: black;
+    color: white;
+}
+
+/*style for window*/
+.window-frame {
+    background-color: #f0f0f0;
+    border: 1px solid #444;
+    border-radius: 6px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.window-header {
+    background-color: #1e1e2e; /* Catppuccin styling */
+    color: white;
+    padding: 6px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+
+.window-content {
+    background-color: white;
+    flex-grow: 1; /* Forces content box to fill the rest of the frame dimensions */
+}
+
+.close-btn {
+    background: #ff5f56; /* Mac/Linux close dot look */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 2px 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
