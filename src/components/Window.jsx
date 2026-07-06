@@ -1,36 +1,58 @@
 import React, { useEffect, useRef } from "react";
 
 // src/components/Window.jsx
-export default function Window({ app, onClose }) {
+export default function Window({ app, onClose, onFocus }) {
   const windowRef = useRef(null);
 
   useEffect(() => {
     const windowDiv = windowRef.current;
-
     const headerElement = windowDiv.querySelector(".window-header");
 
     let isDragging = false;
     let offsetX = 0;
     let offsetY = 0;
 
+    // 1. Isolated mouse down configuration
     const handleMouseDown = (e) => {
       isDragging = true;
       offsetX = e.clientX - windowDiv.offsetLeft;
       offsetY = e.clientY - windowDiv.offsetTop;
     };
 
+    // 2. Isolated mouse move calculation
     const handleMouseMovement = (e) => {
       if (!isDragging) return;
-      windowDiv.style.left = `${e.clientX - offsetX}px`;
-      windowDiv.style.top = `${e.clientY - offsetY}px`;
 
-      const handleMouseRelease = () => {
-        isDragging = false;
-      };
+      let targetX = e.clientX - offsetX;
+      let targetY = e.clientY - offsetY;
 
-      headerElement.addEventListener("mousedown", handleMouseDown);
-      window.addEventListener("mousemove", handleMouseMovement);
-      window.addEventListener("mouseup", handleMouseRelease);
+      const topBar = document.querySelector(".top-bar");
+      const topBarHeight = topBar ? topBar.offsetHeight : 0;
+
+      const maxX = window.innerWidth - windowDiv.offsetWidth;
+      const maxY = window.innerHeight - windowDiv.offsetHeight;
+
+      targetX = Math.max(0, Math.min(targetX, maxX));
+      targetY = Math.max(topBarHeight, Math.min(targetY, maxY));
+
+      windowDiv.style.left = `${targetX}px`;
+      windowDiv.style.top = `${targetY}px`;
+    };
+
+    // 3. Isolated mouse up reset (Completely outside the movement block now!)
+    const handleMouseRelease = () => {
+      isDragging = false;
+    };
+
+    // 4. Flat event listeners activating the functions independently
+    headerElement.addEventListener("mousedown", handleMouseDown);
+    window.addEventListener("mousemove", handleMouseMovement);
+    window.addEventListener("mouseup", handleMouseRelease);
+
+    return () => {
+      headerElement.removeEventListener("mousedown", handleMouseDown);
+      window.removeEventListener("mousemove", handleMouseMovement);
+      window.removeEventListener("mouseup", handleMouseRelease);
     };
   }, []);
 
@@ -38,6 +60,7 @@ export default function Window({ app, onClose }) {
     <div
       ref={windowRef}
       className="window-frame"
+      onMouseDown={() => onFocus(app.id)}
       style={{
         position: "absolute",
         left: `${app.x}px`,

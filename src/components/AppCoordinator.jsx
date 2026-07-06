@@ -25,6 +25,24 @@ export default function AppCoordinator() {
     setOpenWindows([...openWindows, newAppWindow]);
   };
 
+  const focusApp = (id) => {
+    setOpenWindows((prevWindows) => {
+      //1.
+      const maxZ = prevWindows.reduce(
+        (max, app) => Math.max(max, app.zIndex || 10),
+        10,
+      );
+
+      //2.
+      return prevWindows.map((app) => {
+        if (app.id === id) {
+          return { ...app, zIndex: maxZ + 1 };
+        }
+        return app;
+      });
+    });
+  };
+
   // 3. The Closer: Filters an app window out of the state array entirely
   const closeApp = (id) => {
     setOpenWindows(openWindows.filter((app) => app.id !== id));
@@ -55,7 +73,20 @@ export default function AppCoordinator() {
           padding: "10px",
         }}
       >
-        Launch Music Studio
+        Music Studio
+      </button>
+
+      <button
+        className="mock-launcher"
+        onClick={() => launchApp("Calculator", "Calculator")}
+        style={{
+          position: "absolute",
+          top: "100px",
+          left: "200px",
+          padding: "10px",
+        }}
+      >
+        Calculator
       </button>
 
       {/* The Dynamic Workspace Window Loop */}
@@ -64,7 +95,12 @@ export default function AppCoordinator() {
         style={{ position: "relative", width: "100%", height: "100%" }}
       >
         {openWindows.map((app) => (
-          <Window key={app.id} app={app} onClose={closeApp} />
+          <Window
+            key={app.id}
+            app={app}
+            onClose={closeApp}
+            onFocus={focusApp}
+          />
         ))}
       </div>
     </div>
