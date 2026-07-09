@@ -65,7 +65,7 @@ body {
     left: 0;
     width: 100%;
     z-index: 100;
-    padding: 7px 7px;
+    padding: 5px 5px;
     font-size: 13px;
 
     /* 1. Switch layout engine from Flex to Grid */
@@ -96,25 +96,22 @@ body {
 .status-utilities {
     display: flex;
     align-items: center;
-    padding: 5px 5px;
-    background-color: white;
-    color: black;
+    padding: 2px 2px;
     border-radius: 20px;
     width: max-content;
     pointer-events: auto;
+    gap: 5px;
 }
 
 .top-bar button {
-    background: none;
-    border: none;
-    padding: 0;
+    background-color: rgba(255, 255, 255, 0.09);
+    border: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    color: white;
     font: inherit;
     cursor: pointer;
-    color: inherit; /* Inherits the black color from the parent divs */
     padding: 4px 10px; /* Add padding here so the button size stays consistent */
-
-    /* High border-radius creates the capsule shape */
-    border-radius: 22px;
+    border-radius: 24px;
 
     /* Smoothly animates the background color change */
     transition:
@@ -123,33 +120,38 @@ body {
 }
 
 .top-bar button:hover {
-    background-color: black;
+    background-color: rgba(255, 255, 255, 0.3);
     color: white;
 }
 
 /*style for window*/
 .window-frame {
-    background-color: #f0f0f0;
-    border: 1px solid #444;
-    border-radius: 6px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    background-color: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+    border-radius: 7px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
 .window-header {
-    background-color: #1e1e2e; /* Catppuccin styling */
+    background-color: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
     color: white;
     padding: 6px 12px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     user-select: none;
+    border-radius: 8px 8px 0px 0px;
 }
 
 .window-content {
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.01);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
     flex-grow: 1; /* Forces content box to fill the rest of the frame dimensions */
 }
 
@@ -157,8 +159,8 @@ body {
     background: #ff5f56; /* Mac/Linux close dot look */
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 30px;
     padding: 2px 8px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: normal;
 }

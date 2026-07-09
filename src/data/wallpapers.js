@@ -1,4 +1,20 @@
 export const wallpaperlist = [
+
+  {
+    id: "city-skyline",
+    name: "City Skyline",
+    type: "image",
+    value: "/Wallpapers/city-skyline.jpg"
+  },
+
+  {
+    id: "windows-dark",
+    name: "Windows Dark",
+    type: "image",
+    value: "Wallpapers/new-windows-server-2025-wallpapers-v0-amc9oh9dt6kc1.webp"
+    },
+
+
   {
     id: "retro-vaporwave-patterns",
     name: "Retro Vaporwave Patterns",

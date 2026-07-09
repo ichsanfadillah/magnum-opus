@@ -12,7 +12,7 @@ export default function TopBar() {
           <button> - </button>
         </div>
         <div className="status-utilities">
-          <button>Batteries</button>
+          <button>🔋 87%</button>
           <Clock />
         </div>
       </div>

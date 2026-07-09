@@ -67,10 +67,15 @@ export default function AppCoordinator() {
         className="mock-launcher"
         onClick={() => launchApp("music-app", "🎵 Music Studio")}
         style={{
-          position: "absolute",
           top: "100px",
           left: "50px",
+          position: "absolute",
           padding: "10px",
+          backgroundColor: "rgba(255, 255, 255, 0.01)",
+          backdropFilter: "blur(10px)",
+          color: "white",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+          borderRadius: "6px",
         }}
       >
         Music Studio
@@ -80,14 +85,38 @@ export default function AppCoordinator() {
         className="mock-launcher"
         onClick={() => launchApp("Calculator", "Calculator")}
         style={{
-          position: "absolute",
           top: "100px",
           left: "200px",
+          position: "absolute",
           padding: "10px",
+          backgroundColor: "rgba(255, 255, 255, 0.01)",
+          backdropFilter: "blur(10px)",
+          color: "white",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+          borderRadius: "6px",
         }}
       >
         Calculator
       </button>
+
+      <button
+        className="mock-launcher"
+        onClick={() => launchApp("browser-app", "🌐 Web Browser")}
+        style={{
+          top: "100px",
+          left: "350px", // Put it next to your other button
+          position: "absolute",
+          padding: "10px",
+          backgroundColor: "rgba(255, 255, 255, 0.01)",
+          backdropFilter: "blur(10px)",
+          color: "white",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+          borderRadius: "6px",
+        }}
+      >
+        Launch Browser App
+      </button>
+
 
       {/* The Dynamic Workspace Window Loop */}
       <div

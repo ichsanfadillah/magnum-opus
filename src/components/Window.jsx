@@ -1,5 +1,8 @@
 import React, { useEffect, useRef } from "react";
 
+//App Imports
+import Trailblazer from "./desktop-apps/TrailblazerBrowser";
+
 // src/components/Window.jsx
 export default function Window({ app, onClose, onFocus }) {
   const windowRef = useRef(null);
@@ -78,7 +81,7 @@ export default function Window({ app, onClose, onFocus }) {
             className="ctrl-btn close-btn"
             onClick={() => onClose(app.id)}
           >
-            X
+            x
           </button>
         </div>
       </div>
